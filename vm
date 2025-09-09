@@ -1,0 +1,23 @@
+#!/bin/bash/
+
+name=$(whoami)
+
+sudo pacman git
+
+git clone https://aur.archlinux.org/yay-bin.git
+
+cd yay-bin
+
+makepkg -sl
+
+sleep 2
+
+yay
+
+sudo pacman -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm guestfs-tools libosinfo
+
+sudo systemctl enable libvirtd.service
+
+sudo systemctl start libvirtd.service
+
+sudo gpasswd -a $name libvirt
